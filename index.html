@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welington Santos — Senior Software Engineer</title>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg2: #111827;
+      --bg3: #1a2235;
+      --accent: #3b82f6;
+      --accent2: #06b6d4;
+      --accent3: #8b5cf6;
+      --green: #10b981;
+      --text: #e2e8f0;
+      --text2: #94a3b8;
+      --border: #1e293b;
+      --card: #141c2e;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,14,26,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--accent); letter-spacing: 0.5px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text2); text-decoration: none; font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 2rem 60px;
+      background: radial-gradient(ellipse at 20% 50%, rgba(59,130,246,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.06) 0%, transparent 50%);
+      text-align: center;
+    }
+    .hero-inner { max-width: 780px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--accent);
+      padding: 0.3rem 1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero h2 {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text2);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-links {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid var(--accent);
+    }
+    .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+      max-width: 520px; margin: 0 auto;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1rem;
+    }
+    .stat-num {
+      font-size: 1.8rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--text2); margin-top: 0.2rem; }
+
+    /* SECTIONS */
+    section { padding: 80px 2rem; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .section-title {
+      font-size: 1.8rem; font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-title::after {
+      content: ''; flex: 1;
+      height: 1px; background: var(--border);
+    }
+    .section-sub { color: var(--text2); margin-bottom: 3rem; font-size: 0.95rem; }
+
+    /* SKILLS */
+    #skills { background: var(--bg2); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .skill-card-title {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .skill-icon { font-size: 1rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.2);
+      color: var(--text);
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; gap: 2rem; }
+    .exp-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .exp-card:hover { border-color: var(--accent); }
+    .exp-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+    }
+    .exp-card.fanatics::before { background: linear-gradient(180deg, #3b82f6, #06b6d4); }
+    .exp-card.walmart::before { background: linear-gradient(180deg, #fbbf24, #f59e0b); }
+    .exp-card.epot::before { background: linear-gradient(180deg, #10b981, #059669); }
+
+    .exp-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .exp-company-row { display: flex; align-items: center; gap: 1rem; }
+    .company-logo {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .logo-fanatics { background: linear-gradient(135deg, #1e3a5f, #2563eb); color: #93c5fd; }
+    .logo-walmart { background: linear-gradient(135deg, #1e3a5f, #1d4ed8); color: #fbbf24; }
+    .logo-epot { background: linear-gradient(135deg, #064e3b, #065f46); color: #6ee7b7; }
+
+    .exp-company { font-size: 1.2rem; font-weight: 700; }
+    .exp-company a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .exp-company a:hover { color: var(--accent); }
+    .exp-role { color: var(--accent); font-size: 0.9rem; font-weight: 600; }
+    .exp-date {
+      font-size: 0.8rem; color: var(--text2);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .exp-bullets li {
+      color: var(--text2); font-size: 0.9rem;
+      padding-left: 1.2rem; position: relative;
+    }
+    .exp-bullets li::before {
+      content: '▸';
+      position: absolute; left: 0;
+      color: var(--accent); font-size: 0.75rem;
+      top: 0.05rem;
+    }
+    .exp-bullets li strong { color: var(--text); }
+    .exp-metrics {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      margin-top: 1.5rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .metric {
+      display: flex; align-items: center; gap: 0.4rem;
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.2);
+      color: var(--green);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .metric.blue {
+      background: rgba(59,130,246,0.08);
+      border-color: rgba(59,130,246,0.2);
+      color: var(--accent);
+    }
+    .metric.purple {
+      background: rgba(139,92,246,0.08);
+      border-color: rgba(139,92,246,0.2);
+      color: #a78bfa;
+    }
+    .metric.yellow {
+      background: rgba(251,191,36,0.08);
+      border-color: rgba(251,191,36,0.2);
+      color: #fbbf24;
+    }
+
+    /* FEATURED PROJECT */
+    #projects { background: var(--bg2); }
+    .project-feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 700px) {
+      .project-feature { grid-template-columns: 1fr; }
+    }
+    .project-label {
+      display: inline-block;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--accent);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .project-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+    .project-desc { color: var(--text2); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.7; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .project-stack .tag { font-size: 0.72rem; }
+    .pipeline-diagram {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .pipeline-step {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .pipeline-step:last-child { margin-bottom: 0; }
+    .pipe-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .pipe-blue { background: rgba(59,130,246,0.15); }
+    .pipe-cyan { background: rgba(6,182,212,0.15); }
+    .pipe-purple { background: rgba(139,92,246,0.15); }
+    .pipe-green { background: rgba(16,185,129,0.15); }
+    .pipe-label { font-size: 0.82rem; font-weight: 600; }
+    .pipe-desc { font-size: 0.72rem; color: var(--text2); }
+    .pipe-arrow {
+      text-align: center; color: var(--text2);
+      font-size: 0.7rem; margin: 0.1rem 0 0.1rem 18px;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+    }
+    @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; } }
+    .about-text p { color: var(--text2); margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.8; }
+    .about-text p strong { color: var(--text); }
+    .about-facts { display: flex; flex-direction: column; gap: 1rem; }
+    .fact-row {
+      display: flex; align-items: flex-start; gap: 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+    }
+    .fact-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .fact-title { font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 0.2rem; }
+    .fact-val { font-size: 0.88rem; color: var(--text2); }
+
+    /* CONTACT */
+    #contact { background: var(--bg2); }
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem;
+    }
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem;
+      display: flex; align-items: center; gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .contact-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .contact-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      background: rgba(59,130,246,0.1);
+      flex-shrink: 0;
+    }
+    .contact-label { font-size: 0.72rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+    .contact-val { font-size: 0.85rem; font-weight: 600; margin-top: 0.1rem; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text2);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* SCROLL ANIMATIONS */
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      .hero-stats { grid-template-columns: repeat(3,1fr); gap: 0.75rem; }
+      .stat-num { font-size: 1.4rem; }
+      section { padding: 60px 1rem; }
+      .exp-card { padding: 1.5rem 1.2rem; }
+      .project-feature { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">WS</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-badge">Available for New Roles</div>
+    <h1>Welington Santos</h1>
+    <h2>Senior Software Engineer</h2>
+    <p>
+      Full-stack engineer with <strong>8+ years</strong> building scalable platforms across
+      Fintech, E-commerce, and Healthcare. Specialized in real-time systems, event-driven
+      architectures, and internal tooling with React, Node.js, and TypeScript.
+    </p>
+    <div class="hero-links">
+      <a href="https://www.linkedin.com/in/welington-santos-53044a3b2/" target="_blank" class="btn btn-primary">
+        LinkedIn Profile
+      </a>
+      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Industries</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Features Shipped</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">About Me</h2>
+    <p class="section-sub">Background, values, and what I bring to a team</p>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>
+          I'm a <strong>Senior Software Engineer</strong> with over 8 years of experience designing and
+          shipping production systems at scale. My career spans three high-stakes industries —
+          <strong>Fintech (Fanatics)</strong>, <strong>E-commerce (Walmart)</strong>, and
+          <strong>Healthcare (E-POT)</strong> — giving me a broad lens on building reliable,
+          user-facing software.
+        </p>
+        <p>
+          I thrive on problems that sit at the intersection of <strong>real-time data</strong>,
+          <strong>complex business logic</strong>, and <strong>great developer experience</strong>.
+          Whether it's a Kafka pipeline processing thousands of events per second or a React
+          dashboard that replaces hours of manual work, I focus on solutions that create
+          measurable impact.
+        </p>
+        <p>
+          My debugging philosophy: <strong>reproduce first, isolate the layer, fix the root cause —
+          not the symptom</strong>. I write tests to prevent regressions, not just to hit coverage numbers.
+        </p>
+        <p>
+          Outside engineering, I mentor junior developers and collaborate closely with product
+          and design to ship features end-to-end — from stakeholder requirements through to
+          post-launch optimization.
+        </p>
+      </div>
+      <div class="about-facts">
+        <div class="fact-row">
+          <div class="fact-icon">🎓</div>
+          <div>
+            <div class="fact-title">Education</div>
+            <div class="fact-val">B.Sc. Computer Science — University of Tokyo (2014–2018)</div>
+          </div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-icon">📍</div>
+          <div>
+            <div class="fact-title">Location</div>
+            <div class="fact-val">Gonçalves Dias, Maranhão, Brazil — Remote Worldwide</div>
+          </div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-icon">🌐</div>
+          <div>
+            <div class="fact-title">Languages</div>
+            <div class="fact-val">English (Fluent) · Portuguese (Native)</div>
+          </div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-icon">⚡</div>
+          <div>
+            <div class="fact-title">Availability</div>
+            <div class="fact-val">Immediately available · Comfortable with Time Doctor</div>
+          </div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-icon">🤖</div>
+          <div>
+            <div class="fact-title">AI-Assisted Development</div>
+            <div class="fact-val">GitHub Copilot · ChatGPT · LangChain · OpenAI API</div>
+          </div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-icon">🔧</div>
+          <div>
+            <div class="fact-title">Automation Tools</div>
+            <div class="fact-val">N8N · Zapier · Make (Integromat)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-sub">Languages, frameworks, tools, and platforms</p>
+    <div class="skills-grid">
+      <div class="skill-card fade-in">
+        <div class="skill-card-title"><span class="skill-icon">💻</span> Languages</div>
+        <div class="tags">
+          <span class="tag">TypeScript</span><span class="tag">JavaScript</span>
+          <span class="tag">Python</span><span class="tag">SQL</span>
+          <span class="tag">HTML</span><span class="tag">CSS</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-card-title"><span class="skill-icon">🎨</span> Frontend</div>
+        <div class="tags">
+          <span class="tag">React</span><span class="tag">Next.js</span>
+          <span class="tag">Tailwind CSS</span><span class="tag">Redux</span>
+          <span class="tag">Material-UI</span><span class="tag">Vite</span>
+          <span class="tag">Webpack</span><span class="tag">Axios</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-card-title"><span class="skill-icon">⚙️</span> Backend</div>
+        <div class="tags">
+          <span class="tag">Node.js</span><span class="tag">Express</span>
+          <span class="tag">NestJS</span><span class="tag">FastAPI</span>
+          <span class="tag">GraphQL</span><span class="tag">REST API</span>
+          <span class="tag">Kafka</span><span class="tag">RabbitMQ</span>
+          <span class="tag">WebSocket</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-card-title"><span class="skill-icon">🗄️</span> Databases</div>
+        <div class="tags">
+          <span class="tag">PostgreSQL</span><span class="tag">Redis</span>
+          <span class="tag">MongoDB</span><span class="tag">Elasticsearch</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-card-title"><span class="skill-icon">☁️</span> Cloud & DevOps</div>
+        <div class="tags">
+          <span class="tag">AWS</span><span class="tag">GCP</span>
+          <span class="tag">Docker</span><span class="tag">Kubernetes</span>
+          <span class="tag">Terraform</span><span class="tag">GitHub Actions</span>
+          <span class="tag">CI/CD</span><span class="tag">Nginx</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-card-title"><span class="skill-icon">🧪</span> Testing & Observability</div>
+        <div class="tags">
+          <span class="tag">Jest</span><span class="tag">Cypress</span>
+          <span class="tag">Pytest</span><span class="tag">Vitest</span>
+          <span class="tag">Selenium</span><span class="tag">Prometheus</span>
+          <span class="tag">Grafana</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <h2 class="section-title">Experience</h2>
+    <p class="section-sub">8+ years across fintech, e-commerce, and healthcare</p>
+    <div class="exp-list">
+
+      <!-- FANATICS -->
+      <div class="exp-card fanatics fade-in">
+        <div class="exp-header">
+          <div class="exp-company-row">
+            <div class="company-logo logo-fanatics">FAN</div>
+            <div>
+              <div class="exp-company">
+                <a href="https://www.fanatics.com" target="_blank" rel="noopener">Fanatics</a>
+                &nbsp;<a href="https://betfanatics.com/" target="_blank" rel="noopener" style="font-size:0.8rem;color:var(--accent2);">(Fanatics Betting &amp; Gaming ↗)</a>
+              </div>
+              <div class="exp-role">Senior Software Engineer</div>
+            </div>
+          </div>
+          <span class="exp-date">Oct 2023 – Present</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Led end-to-end design of a <strong>scalable backend service layer</strong> (Node.js + TypeScript) powering core betting experiences for thousands of daily users.</li>
+          <li>Built a <strong>personalized recommendation engine</strong> integrating user behavior signals and live event data via PostgreSQL, driving measurable increases in engagement and transaction value.</li>
+          <li>Designed and deployed a <strong>real-time Kafka pipeline</strong> for low-latency decision-making — reducing query latency by <strong>45%</strong> and enabling sub-second market updates at peak traffic.</li>
+          <li>Built internal <strong>trading dashboards</strong> (React / Next.js) that reduced trade execution time <strong>from hours to minutes</strong>, directly improving team responsiveness during live events.</li>
+          <li>Deployed <strong>Prometheus + Grafana</strong> observability stack, reducing mean-time-to-resolution by <strong>60%</strong> for production incidents.</li>
+          <li>Refactored auth layers to <strong>OAuth2 + JWT</strong>, closing security gaps across multiple internal services.</li>
+          <li>Mentored two junior engineers; maintained <strong>85%+ test coverage</strong> with Jest, reducing bug escape rate by <strong>30%</strong>.</li>
+          <li>Supported <strong>50k+ concurrent users</strong> via PostgreSQL query optimization, Redis caching, and Kubernetes tuning.</li>
+        </ul>
+        <div class="exp-metrics">
+          <span class="metric">45% latency reduction</span>
+          <span class="metric">60% faster MTTR</span>
+          <span class="metric">30% fewer bug escapes</span>
+          <span class="metric blue">50k+ concurrent users</span>
+          <span class="metric purple">12+ features shipped</span>
+        </div>
+      </div>
+
+      <!-- WALMART -->
+      <div class="exp-card walmart fade-in">
+        <div class="exp-header">
+          <div class="exp-company-row">
+            <div class="company-logo logo-walmart">WMT</div>
+            <div>
+              <div class="exp-company">
+                <a href="https://www.walmart.com" target="_blank" rel="noopener">Walmart</a>
+                &nbsp;<a href="https://tech.walmart.com" target="_blank" rel="noopener" style="font-size:0.8rem;color:var(--accent2);">(Walmart Tech ↗)</a>
+              </div>
+              <div class="exp-role">Senior Software Engineer</div>
+            </div>
+          </div>
+          <span class="exp-date">Sep 2022 – Oct 2023</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Drove development of a <strong>high-scale event-driven inventory platform</strong> (Node.js + TypeScript + Kafka) providing real-time stock visibility across thousands of store locations.</li>
+          <li>Designed intelligent event processing workflows using <strong>PostgreSQL + SQL transformations</strong>, reducing stockouts by <strong>23%</strong> across pilot regions.</li>
+          <li>Delivered <strong>user-facing inventory dashboards</strong> (React + TypeScript) with live stock levels, alerts, and actionable recommendations for store managers.</li>
+          <li>Implemented <strong>real-time anomaly alerts</strong> via RabbitMQ + Elasticsearch, enabling teams to respond to stock issues in minutes instead of hours.</li>
+          <li>Built secure <strong>REST APIs</strong> for warehouse management integrations, eliminating <strong>8 hours/week</strong> of manual reconciliation work.</li>
+          <li>Scaled automated test coverage to <strong>82%</strong> (Jest + Pytest); cut deployment time from 2 hours to <strong>12 minutes</strong> with GitHub Actions CI/CD.</li>
+          <li>Architected containerized microservices on Kubernetes maintaining <strong>99.8% uptime</strong> during peak inventory events.</li>
+        </ul>
+        <div class="exp-metrics">
+          <span class="metric">23% stockout reduction</span>
+          <span class="metric">99.8% uptime</span>
+          <span class="metric">8 hrs/week saved</span>
+          <span class="metric yellow">2h → 12min deployments</span>
+          <span class="metric blue">82% test coverage</span>
+        </div>
+      </div>
+
+      <!-- E-POT -->
+      <div class="exp-card epot fade-in">
+        <div class="exp-header">
+          <div class="exp-company-row">
+            <div class="company-logo logo-epot">ePOT</div>
+            <div>
+              <div class="exp-company">E-POT (Healthcare)</div>
+              <div class="exp-role">Full Stack Engineer</div>
+            </div>
+          </div>
+          <span class="exp-date">Jun 2018 – Jul 2022</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Contributed to end-to-end development of <strong>HIPAA-compliant telehealth applications</strong> (React + TypeScript + Node.js) supporting thousands of weekly virtual care sessions.</li>
+          <li>Built <strong>patient dashboards and provider tools</strong> with React + Tailwind CSS; dynamic intake forms streamlined onboarding without native app requirements.</li>
+          <li>Implemented <strong>WebSocket peer-to-peer infrastructure</strong> for real-time virtual consultations — reliable video signaling and data channels at scale.</li>
+          <li>Designed scalable <strong>healthcare data models</strong> in PostgreSQL with proper normalization and indexing, improving query performance by <strong>35%</strong>.</li>
+          <li>Automated testing with <strong>Jest + Cypress</strong>: reduced sprint defects from 12 to under 2 per sprint.</li>
+          <li>Added <strong>structured logging and alerting</strong>, reducing debugging time by <strong>40%</strong> for healthcare workflow failures.</li>
+        </ul>
+        <div class="exp-metrics">
+          <span class="metric">35% query improvement</span>
+          <span class="metric">40% less debug time</span>
+          <span class="metric blue">12 → &lt;2 defects/sprint</span>
+          <span class="metric purple">HIPAA Compliant</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECT -->
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title">Featured Project</h2>
+    <p class="section-sub">End-to-end system design — Fanatics Real-Time Trading Dashboard</p>
+    <div class="project-feature fade-in">
+      <div>
+        <div class="project-label">Case Study · Fanatics</div>
+        <h3 class="project-title">Real-Time Sports Betting Trading Dashboard</h3>
+        <p class="project-desc">
+          Trading teams lacked real-time visibility into live markets — hours of delay caused
+          missed opportunities and poor decisions. I designed and built the entire stack from
+          scratch: a React/Next.js dashboard, a Node.js/TypeScript service layer, and a
+          Kafka-powered event pipeline capable of handling <strong>thousands of events per
+          second</strong>. PostgreSQL with optimized schema and indexing served as the source
+          of truth.
+          <br /><br />
+          <strong>Result:</strong> Data visibility time dropped from hours to minutes,
+          query latency fell by 45%, and the dashboard is now the primary tool used by
+          trading teams during live events.
+        </p>
+        <div class="project-stack">
+          <span class="tag">React</span><span class="tag">Next.js</span>
+          <span class="tag">Node.js</span><span class="tag">TypeScript</span>
+          <span class="tag">Apache Kafka</span><span class="tag">PostgreSQL</span>
+          <span class="tag">Redis</span><span class="tag">Prometheus</span>
+          <span class="tag">Grafana</span><span class="tag">Kubernetes</span>
+        </div>
+      </div>
+      <div>
+        <div class="pipeline-diagram">
+          <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:1rem;">System Architecture</div>
+          <div class="pipeline-step">
+            <div class="pipe-icon pipe-blue">📡</div>
+            <div>
+              <div class="pipe-label">Live Market Events</div>
+              <div class="pipe-desc">Sports betting data streams — thousands/sec</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipe-icon pipe-cyan">⚡</div>
+            <div>
+              <div class="pipe-label">Kafka Pipeline</div>
+              <div class="pipe-desc">Event ingestion, deduplication, ordering</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipe-icon pipe-purple">🔧</div>
+            <div>
+              <div class="pipe-label">Node.js Service Layer</div>
+              <div class="pipe-desc">TypeScript · REST API · Business logic</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipe-icon pipe-blue">🗄️</div>
+            <div>
+              <div class="pipe-label">PostgreSQL + Redis</div>
+              <div class="pipe-desc">Optimized schema · Caching layer</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipe-icon pipe-green">📊</div>
+            <div>
+              <div class="pipe-label">React / Next.js Dashboard</div>
+              <div class="pipe-desc">Real-time charts · Market controls · Alerts</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  &copy; 2026 Welington Santos · Senior Software Engineer · Brazil · Remote Worldwide
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
